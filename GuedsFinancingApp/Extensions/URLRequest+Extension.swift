@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension URLRequest {
+    mutating func setApiKeyAuthorization() {
+        setValue("Bearer \(Secrets.apiKey)", forHTTPHeaderField: "Authorization")
+    }
+}
