@@ -8,6 +8,6 @@
 import Foundation
 
 struct TransactionsResponse: Codable {
-    let metadata: Metadata
+    let metadata: Metadata?
     let items: [Transaction]
 }

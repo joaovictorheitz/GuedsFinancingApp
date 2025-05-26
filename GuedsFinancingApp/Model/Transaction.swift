@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Transaction: Codable {
-    let date: Date
+struct Transaction: Codable, Identifiable {
+//    let date: Date
     let type: Int
     let name: String
     let value: Double
