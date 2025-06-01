@@ -61,4 +61,4 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
-GuedsFinancingApp/Constants/Secrets.swift
+GuedsFinancingApp/Constants/Secrets.swift.DS_Store
