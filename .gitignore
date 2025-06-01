@@ -62,3 +62,4 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 GuedsFinancingApp/Constants/Secrets.swift.DS_Store
+GuedsFinancingApp/Constants/Secrets.swift
