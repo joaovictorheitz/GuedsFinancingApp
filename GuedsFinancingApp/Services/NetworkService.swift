@@ -9,7 +9,7 @@ class NetworkService: NetworkServiceProtocol {
         self.session = session
     }
     
-    func request<T: Decodable>(_ request: NetworkRequest, responseType: T.Type) async throws -> T {
+    func request<T: Decodable>(_ request: any NetworkRequest, responseType: T.Type) async throws -> T {
         let urlRequest = try await createURLRequest(from: request)
         
         // Log da request
@@ -55,12 +55,13 @@ class NetworkService: NetworkServiceProtocol {
     }
     
     // MARK: - Private Methods
-    private func createURLRequest(from request: NetworkRequest) async throws -> URLRequest {
+    private func createURLRequest(from request: any NetworkRequest) async throws -> URLRequest {
         var urlComponents = URLComponents(string: request.baseURL + request.path)
         
-        // Adicionar query parameters para GET requests
         if request.method == .GET, let parameters = request.parameters {
-            urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+            urlComponents?.queryItems = parameters.map {
+                URLQueryItem(name: $0.key, value: "\($0.value)")
+            }
         }
         
         guard let url = urlComponents?.url else {
@@ -80,9 +81,16 @@ class NetworkService: NetworkServiceProtocol {
         urlRequest.setApiKeyAuthorization()
         
         // Configurar body para métodos que não sejam GET
-        if request.method != .GET {
+        if request.method != .GET { 
             if let body = request.body {
-                urlRequest.httpBody = body
+                do {
+                    let jsonData = try JSONEncoder().encode(body)
+                    urlRequest.httpBody = jsonData
+                    urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                } catch {
+                    print("🔴 [NetworkService] Failed to encode body: \(error)")
+                    throw NetworkError.networkError(error)
+                }
             } else if let parameters = request.parameters {
                 do {
                     urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters)

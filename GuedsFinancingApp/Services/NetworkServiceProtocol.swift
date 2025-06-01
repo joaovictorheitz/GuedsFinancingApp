@@ -1,5 +1,5 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func request<T: Decodable>(_ request: NetworkRequest, responseType: T.Type) async throws -> T
+    func request<T: Decodable>(_ request: any NetworkRequest, responseType: T.Type) async throws -> T
 } 
