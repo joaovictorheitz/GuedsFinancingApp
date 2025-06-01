@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @State var index = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            Tab("Transações", systemImage: "list.dash") {
+                TransactionsView()
+            }
+            
+            Tab("ContentView", systemImage: "globe") {
+                ContentView()
+            }
+        }
     }
 }
 

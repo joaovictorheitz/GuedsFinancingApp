@@ -20,7 +20,7 @@ struct NewTransactionSheetBuilder: TransactionDataViewBuilder {
         }
         
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: { createButtonAction(transaction) }, label: { Text("Salvar") })
+            Button(action: { createButtonAction(transaction) }, label: { Text("Criar") })
         }
     }
 }

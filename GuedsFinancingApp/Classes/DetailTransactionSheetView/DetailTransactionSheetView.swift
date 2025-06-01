@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct DetailTransactionSheetView: View {
+    @State var transaction: Transaction
+    
+    let saveButtonAction: (Transaction) -> Void
+    let cancelButtonAction: (DismissAction) -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        let builder = DetailTransactionSheetBuilder(saveButtonAction: saveButtonAction, cancelButtonAction: cancelButtonAction)
+        
+        TransactionDataView(transaction: transaction, builder: builder)
     }
 }
 
 #Preview {
-    DetailTransactionSheetView()
+    DetailTransactionSheetView(transaction: Transaction(), saveButtonAction: { _ in }, cancelButtonAction: { _ in })
 }

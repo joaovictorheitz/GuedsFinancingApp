@@ -14,7 +14,7 @@ struct NewTransactionSheetView: View {
     let createButtonAction: (Transaction) -> Void
     
     var body: some View {
-        let builder = NewTransactionPageBuilder(createButtonAction: createButtonAction, cancelButtonAction: cancelButtonAction)
+        let builder = NewTransactionSheetBuilder(createButtonAction: createButtonAction, cancelButtonAction: cancelButtonAction)
         
         TransactionDataView(transaction: transaction, builder: builder)
     }
